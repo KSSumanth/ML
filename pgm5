@@ -1,0 +1,19 @@
+import numpy as np
+import pandas as pd
+data=pd.read_csv("C:/Users/kssum/Downloads/Play_Tennies_reg.csv")
+data
+
+x=data.drop("Hours_played",axis=1)
+y=data.Hours_played
+x
+y
+
+from sklearn import preprocessing
+string_to_int=preprocessing.LabelEncoder()
+x=x.apply(string_to_int.fit_transform)
+
+from sklearn.tree import DecisionTreeRegressor
+reg=DecisionTreeRegressor()
+reg=reg.fit(x,y)
+
+y_pred=reg.predict([[2,1,0,0]])
