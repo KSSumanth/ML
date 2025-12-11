@@ -1,0 +1,15 @@
+import numpy as np
+import pandas as pd
+iris=pd.read_csv("C:/Users/kssum/Downloads/iris.csv")
+x=np.array(iris)[:,:-1]
+y=np.array(iris)[:,-1]
+from sklearn.model_selection import train_test_split
+x_train,x_test,y_train,y_test=train_test_split(x,y,test_size=0.3,random_state=42)
+from sklearn.ensemble import AdaBoostClassifier
+mod=AdaBoostClassifier()
+mod.fit(x_train,y_train)
+y_pred=mod.predict(x_test)
+from sklearn.metrics import accuracy_score
+print(f"accuracy score in % : {accuracy_score(y_test,y_pred)*100}")
+frame=pd.DataFrame({'Actual':y_test,'predicted':y_pred})
+print(frame)
