@@ -1,0 +1,22 @@
+from sklearn.datasets import load_iris
+iris=load_iris()
+x=iris.data
+y=iris.target
+num_inst=x.shape[0]
+print(f'total number of instances is : {num_inst}')
+from sklearn.model_selection import train_test_split
+x_train,x_test,y_train,y_test=train_test_split(x,y,test_size=0.3,random_state=1)
+print(f'number of training instance: {x_train.shape[0]}')
+print(f'number of testing instance: {x_test.shape[0]}')
+from sklearn.ensemble import RandomForestClassifier
+rf=RandomForestClassifier(n_estimators=100)
+rf.fit(x_train,y_train)
+y_pred=rf.predict(x_test)
+import pandas as pd
+frame=pd.DataFrame({'Actual':y_test,'predicted':y_pred})
+print(frame)
+from sklearn.metrics import accuracy_score
+print(f"accuracy score in % : {accuracy_score(y_test,y_pred)*100}")
+label_mapping={0:"iris_setosa",1:"iris_versicular",2:"iris_verginica"}
+y_pred=rf.predict([[3,3,2,2]])
+print("result is :",label_mapping[y_pred[0]])
